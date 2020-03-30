@@ -10,7 +10,14 @@ import os
 import pandas as pd
 from time import sleep as sp
 
+
+    
 Delete_After_Read = True
+state_file = 'C:\\Users\\Trif\\Documents\\GitHub\\DicotRealtime\\State.txt'
+
+def StopGathering():
+    with open (state_file,'w') as f:
+        f.write('stop')
 
 # Read Model
 
@@ -21,7 +28,7 @@ def Recognize(fname):
 list_of_files = glob.glob('C:\\Users\\Trif\\Desktop\\NewFile\*') # * means all if need specific format then *.csv
 latest_file = max(list_of_files, key=os.path.getctime)
 while True:
-    sp(0.5)
+    sp(1)
     list_of_files = glob.glob('C:\\Users\\Trif\\Desktop\\NewFile\*') # * means all if need specific format then *.csv
     if max(list_of_files, key=os.path.getctime) != latest_file:
         TBDeleted = latest_file
