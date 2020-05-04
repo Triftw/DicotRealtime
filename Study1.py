@@ -19,7 +19,7 @@ Gathering = True
 Delete_After_Read = True
 state_file = 'C:\\Users\\Trif\\Documents\\GitHub\\DicotRealtime\\State.txt'
 state = 'knotting'
-def StopGathering(): #Get stop message from VBA
+def StopGathering(): #Send stop message to VBA
     Gathering = False
     with open (state_file,'w') as f:
         f.write('stop')
@@ -49,6 +49,7 @@ def Keydown(e):
     global state
     global tex
     global tlabel
+    global ImageLabel
     buttonID = None
     if e.char == ' ':
         buttonID = 1
@@ -59,18 +60,26 @@ def Keydown(e):
         elif state == 'reseting':
             tex.set('Please finish the knot and press space')
             state = 'knotting'
+            ImageLabel.configure(image = Imgs[0])
+            #ImageLabel.image = Slip
 #Image
-FigureEight = Image.open('Images//figureeight.jpg')
-#Slip = Image.open('slip.jpg')
-#Overhand = Image.open('overhand.jpg')
+Eight = Image.open('Images//eight.png')
+Slip = Image.open('Images//slip.png')
+Overhand = Image.open('Images//overhand.png')
+Clove = Image.open('Images//clove.png')
 #Window
 window = tk.Toplevel()
 frm = Frame(window)
 frm.pack(fill=BOTH, expand=1)
 window.geometry("600x450+400+100")
 
-FE = ImageTk.PhotoImage(FigureEight)
-ImageLabel = Label(frm,image = FE)
+
+E = ImageTk.PhotoImage(Eight)
+S = ImageTk.PhotoImage(Slip)
+O = ImageTk.PhotoImage(Overhand)
+C = ImageTk.PhotoImage(Clove)
+Imgs = [O,E,S,C]
+ImageLabel = Label(frm,image = E)
 #ImageLabel.image = FE
 ImageLabel.place = (10,80)
 ImageLabel.pack()
@@ -88,19 +97,6 @@ tex.set(s)
 tlabel = Label(bottomframe,textvariable = tex,justify = tk.LEFT)
 tlabel.pack(side = tk.LEFT)
 
-'''
-for i in range(4):
-    btn = tk.Button(btn_frame, text=pos[i], fg=color[i], bg=looseColor, command=lambda m=pos[i], btn=i: getBtnInput(m, btn))
-    btn.config(height=10, width=50)
-    buttons.append(btn)
-
-buttons[0].grid(row=1, column=1)
-buttons[1].grid(row=1, column=2)
-buttons[2].grid(row=2, column=1)
-buttons[3].grid(row=2, column=2)
-'''
-#nexttrial_button = tk.Button(next_btn_frame, text='next trial', fg='black', command=nextTrialBtn)
-#nexttrial_button.grid(row=4, column=1)
 
 
 window.mainloop()
